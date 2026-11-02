@@ -1,5 +1,7 @@
 # circuit-mssql
 
+[![Conn3x grade](https://conn3x.org/circuits/mssql/grade.svg)](https://conn3x.org/circuits/mssql/grade)
+
 A Conn3x circuit that installs Microsoft SQL Server 2025 on Linux from Microsoft's own repositories, runs `mssql-conf setup` for you without anyone typing answers into it, and keeps its settings where you put them. If someone changes the port or the memory limit by hand, the next plan shows it.
 
 The `sa` password never lands in state. You pass it in at run time through an ephemeral variable, it reaches `mssql-conf` through the environment rather than a command line anyone can see in `ps`, and the plan only shows that it changed.
