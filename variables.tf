@@ -3,8 +3,8 @@ variable "hosts" {
   description = "Hosts to configure: a map of names to addresses, or to host objects with an address and optional host_key, user, port, private_key_file, jump_hosts or os."
 
   validation {
-    condition     = alltrue([for h in var.hosts : contains(["ubuntu", "rocky", "almalinux", "rhel", "centos"], try(h.os, "ubuntu"))])
-    error_message = "A host object's os must be one of ubuntu, rocky, almalinux, rhel or centos."
+    condition     = alltrue([for h in var.hosts : contains(["ubuntu", "rocky", "almalinux", "rhel"], try(h.os, "ubuntu"))])
+    error_message = "A host object's os must be one of ubuntu, rocky, almalinux or rhel. CentOS Linux reached end of life on 30 June 2024: use Rocky Linux."
   }
 }
 
