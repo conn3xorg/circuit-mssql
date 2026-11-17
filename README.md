@@ -149,9 +149,27 @@ Requires Conn3x v0.6.9 or later, and on each host systemd, an x86-64 processor, 
 
 ## Tested on
 
-Ubuntu 24.04, Ubuntu 22.04, Rocky Linux 10 and Rocky Linux 9, on DigitalOcean droplets with 2 vCPUs and 4 GB, with SQL Server 2025 CU10 (17.0.5035.5). On each, the circuit installed and set up SQL Server listening on `127.0.0.1:1433` with a 2048 MB memory limit, the second plan had no changes, and `sa` logged in over TCP with `sqlcmd`, created a database and a table, wrote a row and read it back after a restart. On Ubuntu 24.04 and Rocky Linux 10, a second apply moved SQL Server from Developer to Express edition, to port 1533 on every address, and back to `127.0.0.1:1433` with a new `sa` password, and each change showed up on the server. All four came back after a reboot with SQL Server running, the row still there and the second plan clean. Both Rocky Linux droplets ran with SELinux enforcing, and their audit logs had no denials.
+**Where:** Ubuntu 24.04, Ubuntu 22.04, Rocky Linux 10 and Rocky Linux 9, on DigitalOcean droplets with 2 vCPUs and 4 GB, running SQL Server 2025 CU10 (17.0.5035.5).
 
-CI applies [examples/local](examples/local) to Ubuntu 24.04, Ubuntu 22.04, Rocky Linux 10 and Rocky Linux 9 containers on GitHub's x86-64 runners, checks the second plan has no changes, then runs the same `sqlcmd` checks. Those containers can't run on an Apple-silicon Mac, so CI hadn't run when v0.1.0 was tagged; the droplet runs above are what this release rests on.
+**On all four systems**, the circuit:
+
+- installed and set up SQL Server listening on `127.0.0.1:1433` with a 2048 MB memory limit;
+- showed `No changes.` on the second plan;
+- let `sa` log in over TCP with `sqlcmd`, create a database and a table, write a row, and read it back after a restart.
+
+**On Ubuntu 24.04 and Rocky Linux 10**, a second apply:
+
+- moved SQL Server from Developer to Express edition;
+- moved it to port 1533 on every address;
+- moved it back to `127.0.0.1:1433` with a new `sa` password.
+
+Each change showed up on the server.
+
+**After a reboot**, all four systems came back with SQL Server running, the row still there and the second plan clean.
+
+**SELinux:** both Rocky Linux droplets ran with SELinux enforcing, and their audit logs had no denials.
+
+**CI:** it applies [examples/local](examples/local) to Ubuntu 24.04, Ubuntu 22.04, Rocky Linux 10 and Rocky Linux 9 containers on GitHub's x86-64 runners. It checks the second plan has no changes, then runs the same `sqlcmd` checks. Those containers can't run on an Apple-silicon Mac, so CI hadn't run when v0.1.0 was tagged; the droplet runs above are what this release rests on.
 
 ## License
 
